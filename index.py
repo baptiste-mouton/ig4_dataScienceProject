@@ -7,15 +7,13 @@ from apps import *
 
 # Connect to main app.py file
 from app import app
-from app import server
 
 import dash_bootstrap_components as dbc
-
+from apps import eda
 # Connect to your app pages
-from apps import vgames, global_sales, eda
 from apps.edapkg.categorical_features import temporalite, expediteur, categorie
 from apps.edapkg.continuous_features import continuous
-from apps.clusteringpkg import content_classification
+from apps.clusteringpkg import content_classification, attribute_classification
 import pandas as pd
 
 # link fontawesome to get the chevron icons
@@ -29,9 +27,16 @@ SIDEBAR_STYLE = {
     "top": 0,
     "left": 0,
     "bottom": 0,
-    "width": "16rem",
+    "width": "20rem",
     "padding": "2rem 1rem",
-    "background-color": "#f8f9fa",
+    "background-color": "#BDCFB8",
+    "font": "bold 14px Arial",
+    "text-decoration": "none",
+    "color": "#333333",
+    "border-top": "1px solid #CCCCCC",
+    "border-right": "1px solid #333333",
+    "border-bottom": "1px solid #333333",
+    "border-left": "1px solid #CCCCCC"
 }
 
 # the styles for the main content position it to the right of the sidebar and
@@ -99,8 +104,7 @@ submenu_2 = [
     ),
     dbc.Collapse(
         [
-            dbc.NavLink("A - ", href="/page-2/1"),
-            dbc.NavLink("B - ", href="/page-2/2"),
+            dbc.NavLink("Analyse", href="/classification/classification_attribut"),
         ],
         id="submenu-2-collapse",
     ),
@@ -122,7 +126,7 @@ submenu_3 = [
     ),
     dbc.Collapse(
         [
-            dbc.NavLink("Analyse", href="/clustering/classification_contenu"),
+            dbc.NavLink("Analyse", href="/classification/classification_contenu"),
         ],
         id="submenu-3-collapse",
     ),
@@ -226,8 +230,10 @@ def render_page_content(pathname):
         return expediteur.layout
     elif pathname == "/eda/contenu":
         return continuous.layout
-    elif pathname == "/clustering/classification_contenu":
+    elif pathname == "/classification/classification_contenu":
         return content_classification.layout
+    elif pathname == "/classification/classification_attribut":
+        return attribute_classification.layout
     # If the user tries to reach a different page, return a 404 message
     return dbc.Jumbotron(
         [

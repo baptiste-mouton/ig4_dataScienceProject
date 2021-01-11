@@ -12,7 +12,7 @@ from app import app
 
 # get relative data folder
 # PATH = pathlib.Path(__file__).parent
-# DATA_PATH = PATH.joinpath("../datasets").resolve()
+# DATA_PATH = PATH.joinpath("../data").resolve()
 #
 # data = pd.read_csv(DATA_PATH.joinpath("mail_clean.csv"))
 #
